@@ -1,4 +1,16 @@
-// Variabelen voor het startscherm
+////////////////////////////////////////////////////////////////////////////////
+//
+// Student:        Bastiaan de Hart
+// Studentnummer:  2184012
+// Groepnummer:    IJ
+// Docent:         Bas Degen
+// Datum:          23-04-2024
+// Opdrachtnummer: EINDPRODUCT
+// Titel:          Eindproduct
+// Beschrijving:   Mini game: Vang de bal
+//
+////////////////////////////////////////////////////////////////////////////////
+
 boolean gameStarted = false; // Variabele om bij te houden of het spel gestart is
 
 // Variabelen voor het spel
@@ -14,6 +26,18 @@ int[] ballY = new int[totalBalls]; // Y-positie van elke bal
 int[] ballSpeed = new int[totalBalls]; // Snelheid van elke bal
 int[] ballColor = new int[totalBalls]; // Kleur van elke bal
 
+// Informatieve teksten (uitleg aan begin)
+String info1 = "Welkom bij mijn mini game genaamd: Vang de bal.";
+String info2 = "Je zal gebruik moeten maken van de A en D toetsen.";
+String info3 = "Het doel is zoveel mogenlijk ballen te vangen.";
+
+// Kleuren
+color cBackground = color(255,255,255); // Achtergrond
+color cBgGameover = color(255,0,0); // Game over achtergrond
+color cMainCaracter = color(0, 0, 0); // Het object dat de bal moet vangen
+
+int txtSize = 20;
+
 void setup() {
   
   size(600, 400);
@@ -22,7 +46,7 @@ void setup() {
 
 void draw() {
   
-  background(255);
+  background(cBackground);
   
   if (!gameStarted) {
     
@@ -41,21 +65,23 @@ void drawStartScreen() {
   
   // Tekenen van de teksten en startknop
   // Introductie tekst
-  text("Welkom bij mijn mini game genaamd: Vang de bal.", width / 2, 60);
+  text(info1, width / 2, 60);
   
   // Uitleg tekst
-  text("Je zal gebruik moeten maken van de A en D toetsen.", width / 2, 120);
-  text("Het doel is zoveel mogenlijk ballen te vangen.", width / 2, 140);
+  text(info2, width / 2, 120);
+  text(info3, width / 2, 140);
   
   fill(255);
   textAlign(CENTER, CENTER);
   textSize(20);
   text("Start", width / 2, height / 2);
   
-  // Controleren of de muisknop is ingedrukt binnen de grenzen van de startknop
-  // Ik wist niet zo goed hoe ik de knoo klikbaar moest maken.
-  // Code is daarom deels afkomstig van documentatie van Processing zelf
-  // BRON: https://processing.org/examples/button.html 
+  /*
+   * Controleren of de muisknop is ingedrukt binnen de grenzen van de startknop
+   * Ik wist niet zo goed hoe ik de knoo klikbaar moest maken.
+   * Code is daarom deels afkomstig van documentatie van Processing zelf
+   * BRON: https://processing.org/examples/button.html
+   */
   if (mousePressed && mouseX >= width / 2 - 50 && mouseX <= width / 2 + 50 && mouseY >= height / 2 - 25 && mouseY <= height / 2 + 25) {
     
     gameStarted = true;
@@ -66,9 +92,11 @@ void drawGame() {
   // Beweging van de paddenstoel
   if (keyPressed) {
     
-    // Probleem, waneer CAPS aanstaat werkt de keuze niet
-    // Dit probleem heeft me een hoop onodige tijd gekost
-    // Probleem opgelost door ook de Hoofdletters bij te voegen
+    /*
+     * Probleem, waneer CAPS aanstaat werkt de keuze niet
+     * Dit probleem heeft me een hoop onodige tijd gekost
+     * Probleem opgelost door ook de Hoofdletters bij te voegen.
+     */
     if (key == 'a' || key == 'A') {
       
       objX -= objSpeed;
@@ -84,8 +112,8 @@ void drawGame() {
   }
   
   // Tekenen van het object
-  fill(255, 255, 0);
-  ellipse(objX, height - objSize / 2, objSize, objSize);
+  fill(cMainCaracter);
+  rect(objX, height - objSize / 2, objSize, objSize);
   
   // Tekenen van de ballen
   for (int i = 0; i < totalBalls; i++) {
@@ -110,9 +138,13 @@ void drawGame() {
   
   // Tekenen van de score en tijd
   fill(0);
-  textSize(20);
+  textSize(txtSize);
   text("Score: " + score, 40, 10);
   
+  /*
+   * ALs er minder dan 10 sexonden zijn veranderd de kleur naar ROOD
+   * Om aan te duiden dat de tijd bijna op is.
+   */
   if(timeLeft < 10) {
     
     fill(255,0,0);
@@ -158,12 +190,14 @@ void resetBall(int index) {
 
 void gameOver() {
   
-  // Tekenen van het eindscherm
-  
-  // Er zit een kleine Bug in deze functie dat de score blijft oplopen
-  // Op de achtergrond loopt de game dus nog
-  // Helaas geen tijd meer over om dit op te kunnen lossen
-  background(255,0,0);
+  /*
+   * Tekenen van het eindscherm
+   * Er zit een kleine Bug in deze functie dat de score blijft oplopen
+   * Op de achtergrond loopt de game dus nog
+   * Helaas geen tijd meer over om dit op te kunnen lossen
+   */
+   
+  background(cBgGameover);
   fill(0);
   textAlign(CENTER, CENTER);
   textSize(60);
