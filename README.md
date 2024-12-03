@@ -9,7 +9,8 @@ Blok 2 | ADWE | HTML + CSS
 Blok 3 | BASC | Processing (Java)
 Blok 4 | ADSC | JavaScript
 
-## jaar 2
+## Jaar 2
 Blok | Vak | Taal
 --- | --- | ---
 Blok 5 | COMP | Arduino
+Blok 6 | MDEV | HTML, CSS & JavaScript
