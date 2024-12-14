@@ -2,13 +2,20 @@
 <html lang="nl" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <!-- Title tag -->
     <title>TODO App</title>
-
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <!-- Kleurtje -->
+    <meta name="theme-color" content="#0d6efd">
+    <!-- HTML viewport (mobile) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Description tag -->
     <meta name="description" content="Makkelijk te gebruiken TODO lijst Pwa">
-
+    <!-- Manifest voor PWA -->
     <link rel="manifest" href="/manifest.json">
-    <script src="/assets/js/script.js" defer></script>
+    <!-- Mijn JS code -->
+    <script src="/assets/js/main.js" defer></script>
     <!-- 
       Alles zit gebundeld in 1 CSS bestand.
       Ik maak gebruik van Bootstrap + eigen CSS.
@@ -30,11 +37,18 @@
 
     <!-- main content -->
     <main class="container my-4 pt-5">
-      <!-- Drie kolommen layout -->
+      <!-- Drie kolommen layout met USP's. USP's zelf met emoji's -->
       <div class="row pt-4 mb-4 usp">
-        <div class="col-4">&#10004; Eenvoudig te gebruiken</div>
-        <div class="col-4">&#10004; Gratis</div>
-        <div class="col-4">&#10004; Mobiel te gebruiken</div>
+        <div class="col-4">✅ Eenvoudig te gebruiken</div>
+        <div class="col-4">✅ Gratis</div>
+        <div class="col-4">✅ Mobiel te gebruiken</div>
+      </div>
+
+      <!-- Content -->
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+          <p>Welkom bij je persoonlijke takenlijst. Deze app helpt je om je dagelijkse taken georganiseerd te houden. Voeg taken toe, verwijder ze wanneer ze voltooid zijn, en sla ze veilig op met LocalStorage zodat ze altijd beschikbaar blijven. Ontvang handige notificaties bij nieuwe taken, deel je lijst met anderen via de Web Share API, en bekijk je locatie voor extra context. Met offline ondersteuning en moderne functies zoals trillingsfeedback en geolocatie is deze app ontworpen om jouw productiviteit te verbeteren, waar je ook bent. Begin vandaag nog en ervaar hoe eenvoudig takenbeheer kan zijn!</p>
+        </div>
       </div>
 
       <div class="row justify-content-center">

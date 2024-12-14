@@ -1,6 +1,6 @@
 "use strict"; // Strikte syntax volgens protocol
 
-console.log("Javascript ingeladen (script.js)");
+console.log("Javascript ingeladen (main.js)");
 
 /*
  * BRON: 	https://brightspace.avans.nl/d2l/le/lessons/202566/topics/1484959
@@ -8,8 +8,10 @@ console.log("Javascript ingeladen (script.js)");
  * 
  */
 if ("serviceWorker" in navigator) {
+
     window.addEventListener("load", function() {
-        navigator.serviceWorker.register("/sw.js").then(function(registration) {
+
+        navigator.serviceWorker.register("/assets/js/sw.js").then(function(registration) {
             console.log("ServiceWorker registratie succesvol: ", registration.scope);
         }, function(error) {
             console.log("ServiceWorker registratie gefaald: ", error);
@@ -45,7 +47,10 @@ function sendNotification(tekst) {
 		// Geen toestemming.
 		// Vraag om toestemming en dan functie opnieuw uitvoeren.
 		Notification.requestPermission().then(permission => {
+
 			if (permission === "granted") {
+
+				console.log("Notificaties toestemming verkregen.");
 				sendNotification(tekst);
 			}
 		});
@@ -56,6 +61,8 @@ function sendNotification(tekst) {
  * Functie voor geolocatie
  * DOCS: https://developer.mozilla.org/en-US/docs/Web/API/Navigator/geolocation
  * 
+ * TODO: Fixing console probleem;
+ * 		 main.js:67 [Violation] Only request geolocation information in response to a user gesture.
  */ 
 function showGeolocation() {
 	if ("geolocation" in navigator) {
@@ -66,11 +73,11 @@ function showGeolocation() {
 			// Lot & Lat instellen met coordinaten.
 			const { latitude, longitude } = position.coords;
 
-			// console.log(position.coords);
+			console.log("Locatie coordinaten: " + position.coords);
 
 			// Manipuleer DOM met locatie coordinaten.
 			document.getElementById("geolocation-info").textContent = 
-				"Je huidige locatie is: Lat " + latitude + "Lon " + longitude;
+				"Je huidige locatie is: Lat: " + latitude + " Lon: " + longitude;
 		});
 	}
 }
@@ -113,10 +120,12 @@ function loadTasksFromLocalStorage() {
 	}
 }
 
-// Taak toevoegen aan de lijst (alleen DOM)
+// Taak toevoegen aan de lijst (alleen DOM).
 function renderTask(task) {
 	const taskList = document.getElementById("task-list");
 	const listItem = document.createElement("li");
+
+	// Toevoegen van Bootstrap CSS classes.
 	listItem.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
 
 	// Taak tekst
@@ -124,31 +133,34 @@ function renderTask(task) {
 	taskText.textContent = task;
 	listItem.appendChild(taskText);
 
-	// Verwijder knop (kruisje)
+	// Verwijder knop (kruisje).
 	const deleteButton = document.createElement("button");
 	deleteButton.innerHTML = "&times;";
+
+	// Toevoegen van Bootstrap CSS classes voor knop
 	deleteButton.classList.add("btn", "btn-danger", "btn-sm", "delete-btn");
 	deleteButton.addEventListener("click", () => {
 		removeTask(task);
 		listItem.remove();
 	});
 
+	// Toepassen in DOM.
 	listItem.appendChild(deleteButton);
 	taskList.appendChild(listItem);
 }
 
-// Taak toevoegen aan zowel DOM als LocalStorage
+// Taak toevoegen aan zowel DOM als LocalStorage.
 function addTask(task) {
-	// Voeg de taak toe aan de DOM
+	// Voeg de taak toe aan de DOM.
 	renderTask(task);
 
-	// Voeg de taak toe aan LocalStorage
+	// Voeg de taak toe aan LocalStorage.
 	const tasks = loadTasksFromLocalStorage();
 	tasks.push(task);
 	saveTasksToLocalStorage(tasks);
 }
 
-// Taak verwijderen uit LocalStorage
+// Taak verwijderen uit LocalStorage.
 function removeTask(task) {
 	let tasks = loadTasksFromLocalStorage();
 	
@@ -161,7 +173,7 @@ function removeTask(task) {
 	sendNotification("TODO item verwijderd.");
 }
 
-// Event listener voor het toevoegen van een taak
+// Event listener voor het toevoegen van een taak.
 document.getElementById("add-task-btn").addEventListener("click", () => {
 	const taskInput = document.getElementById("task-input");
 	const task = taskInput.value.trim();
@@ -173,12 +185,12 @@ document.getElementById("add-task-btn").addEventListener("click", () => {
 	}
 });
 
-// Takenlijst laden bij het opstarten
+// Takenlijst laden bij het opstarten.
 function displayTasks() {
 
 	const tasks = loadTasksFromLocalStorage();
 
-	// Render alleen de taken in de DOM zonder ze opnieuw op te slaan
+	// Render alleen de taken in de DOM zonder ze opnieuw op te slaan.
 	tasks.forEach(renderTask);
 }
 
@@ -189,7 +201,7 @@ function displayTasks() {
  */ 
 document.getElementById("share-btn").addEventListener("click", () => {
 
-	// Inladen taken van Local Storage
+	// Inladen taken van Local Storage.
 	const tasks = loadTasksFromLocalStorage();
 
 	// Taken tekst ENTEREN.
@@ -219,8 +231,8 @@ document.getElementById("notify-btn").addEventListener("click", () => {
 	sendNotification("Nieuw TODO item toegevoegd.");
 });
 
-// Geolocatie tonen
+// Geolocatie tonen.
 showGeolocation();
 
-// Taken weergeven bij opstarten
+// Taken weergeven bij opstarten.
 displayTasks();

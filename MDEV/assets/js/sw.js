@@ -1,27 +1,24 @@
 "use strict"; // Strikte syntax volgens protocol
 
-// Constante met naam van de cache,
-const CACHE_NAME = "todo-cache";
-
-// Constante met alle files die ik wil cachen.
-// HTML, Stylesheets, JS, Manifest en PNG
+// Constante met een Array van alle files die ik wil cachen.
 const urlsToCache = [
 	"/",
 	"/index.html",
 	"/assets/css/main.min.css",
-	"/assets/js/app.js",
+	"/assets/js/main.js",
+	"/assets/js/sw.js",
 	"/manifest.json",
+	"/favicon.ico",
 	"/assets/icons/icon_48x48.png",
 	"/assets/icons/icon_128x128.png",
-	"/assets/icons/icon_144x144.png",
 	"/assets/icons/icon_192x192.png",
 	"/assets/icons/icon_512x512.png"
 ];
 
-// Installeren Service Worker,
+// Installeren Service Worker.
 self.addEventListener("install", (event) => {
 	event.waitUntil(
-		caches.open(CACHE_NAME)
+		caches.open("todo-cache") // Naam van cache
 			.then((cache) => cache.addAll(urlsToCache))
 	);
 });
