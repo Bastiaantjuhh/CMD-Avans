@@ -5,7 +5,7 @@
 	Datum:      5 Juni 2024
 	Naam:       Bastiaan de Hart
 	Studentnr:  2184012
-	eMail:      bfm.dehart@student.avans.nl
+	eMail:      
 	Klas:       IJ
 	Docent:     Theron Grey
 	Verklaring: Ik verklaar deze toets oprecht te maken volgens
